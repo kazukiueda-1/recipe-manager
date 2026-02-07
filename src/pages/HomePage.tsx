@@ -8,6 +8,19 @@ import Input from '../components/common/Input.tsx';
 
 const EMOJI_OPTIONS = ['👩', '👧', '👨', '👦', '👵', '👴', '🧑', '👶'];
 
+const FLOATING_DECORATIONS = [
+  { content: '🍰', top: '8%', left: '5%', size: 'text-3xl', duration: '6s', delay: '0s', opacity: 'opacity-30' },
+  { content: '🧁', top: '15%', right: '8%', size: 'text-2xl', duration: '7s', delay: '1s', opacity: 'opacity-25' },
+  { content: '🍩', top: '60%', left: '3%', size: 'text-2xl', duration: '8s', delay: '2s', opacity: 'opacity-20' },
+  { content: '🍪', top: '75%', right: '6%', size: 'text-3xl', duration: '6.5s', delay: '0.5s', opacity: 'opacity-25' },
+  { content: '🍓', top: '35%', left: '8%', size: 'text-xl', duration: '7.5s', delay: '3s', opacity: 'opacity-30' },
+  { content: '🌸', top: '20%', left: '85%', size: 'text-2xl', duration: '9s', delay: '1.5s', opacity: 'opacity-20' },
+  { content: '🌸', top: '50%', right: '12%', size: 'text-xl', duration: '7s', delay: '4s', opacity: 'opacity-15' },
+  { content: '🍰', top: '85%', left: '15%', size: 'text-xl', duration: '8.5s', delay: '2.5s', opacity: 'opacity-20' },
+  { content: '', top: '45%', left: '90%', size: 'w-4 h-4', duration: '6s', delay: '1s', opacity: 'opacity-20', isCircle: true, color: 'bg-pink-300' },
+  { content: '', top: '70%', left: '10%', size: 'w-3 h-3', duration: '7s', delay: '3.5s', opacity: 'opacity-15', isCircle: true, color: 'bg-purple-300' },
+];
+
 export default function HomePage() {
   const { setCurrentUser } = useAuth();
   const { users, loading, addUser } = useUsers();
@@ -32,20 +45,48 @@ export default function HomePage() {
   if (loading) return <Loading />;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-b from-accent-cream to-white">
-      <div className="animate-fade-in">
-        <h1 className="text-2xl font-bold text-primary-500 mb-2 text-center flex items-center justify-center gap-2">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 relative overflow-hidden"
+      style={{ background: 'linear-gradient(135deg, #fce4ec 0%, #e8eaf6 40%, #e0f2f1 100%)' }}>
+
+      {/* Floating decorations */}
+      {FLOATING_DECORATIONS.map((deco, i) => (
+        <div
+          key={i}
+          className={`absolute pointer-events-none ${deco.opacity} ${deco.size} ${deco.isCircle ? `${deco.color} rounded-full` : ''}`}
+          style={{
+            top: deco.top,
+            left: deco.left,
+            right: deco.right,
+            animation: `${i % 2 === 0 ? 'float' : 'floatDrift'} ${deco.duration} ease-in-out ${deco.delay} infinite`,
+          }}
+        >
+          {deco.content}
+        </div>
+      ))}
+
+      {/* Title */}
+      <div className="animate-fade-in relative z-10">
+        <h1 className="text-3xl font-bold mb-2 text-center flex items-center justify-center gap-2"
+          style={{ color: '#d4637b', textShadow: '0 2px 8px rgba(212, 99, 123, 0.2)' }}>
           <span>🍳</span>
           <span>レシピノート</span>
         </h1>
         <p className="text-sm text-neutral-500 mb-8 text-center">使う人を選んでください</p>
       </div>
-      <div className="flex flex-wrap justify-center gap-4 animate-slide-up">
+
+      {/* User cards */}
+      <div className="flex flex-wrap justify-center gap-4 animate-slide-up relative z-10">
         {users.map(user => (
           <button
             key={user.id}
             onClick={() => handleSelect(user)}
-            className="flex flex-col items-center gap-2 bg-gradient-to-br from-white to-accent-cream/50 rounded-xl shadow-sm hover:shadow-md p-6 w-32 transition-all duration-200 active:scale-95 border-none cursor-pointer"
+            className="flex flex-col items-center gap-2 rounded-2xl p-6 w-32 cursor-pointer border-2 border-pink-200 transition-all duration-200 active:scale-95"
+            style={{
+              background: 'rgba(255, 255, 255, 0.85)',
+              boxShadow: '0 4px 16px rgba(236, 166, 186, 0.25)',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.animation = 'softBounce 0.4s ease'; }}
+            onMouseLeave={e => { e.currentTarget.style.animation = ''; }}
           >
             <span className="text-5xl">{user.icon}</span>
             <span className="font-medium text-neutral-700">{user.name}</span>
@@ -53,10 +94,14 @@ export default function HomePage() {
         ))}
         <button
           onClick={() => { setShowAdd(true); setName(''); setIcon('🧑'); }}
-          className="flex flex-col items-center justify-center gap-2 bg-white rounded-xl shadow-sm hover:shadow-md p-6 w-32 transition-all duration-200 active:scale-95 border-2 border-dashed border-neutral-300 cursor-pointer"
+          className="flex flex-col items-center justify-center gap-2 rounded-2xl p-6 w-32 cursor-pointer transition-all duration-200 active:scale-95 border-2 border-dashed border-pink-300"
+          style={{
+            background: 'rgba(255, 255, 255, 0.7)',
+            boxShadow: '0 4px 16px rgba(236, 166, 186, 0.15)',
+          }}
         >
-          <span className="text-5xl text-neutral-400">＋</span>
-          <span className="font-medium text-neutral-400">追加</span>
+          <span className="text-5xl" style={{ color: '#e8a0b4' }}>＋</span>
+          <span className="font-medium" style={{ color: '#e8a0b4' }}>追加</span>
         </button>
       </div>
 
