@@ -1,7 +1,7 @@
 import * as functions from "firebase-functions";
 import cors from "cors";
 import { scrapeRecipeFromUrl } from "./scrapeRecipe";
-import { parseRecipeText } from "./parseWithAI";
+import { parseRecipeText, parseRecipeImage } from "./parseWithAI";
 
 const corsHandler = cors({ origin: true });
 
@@ -51,6 +51,35 @@ export const parseVoiceText = functions.https.onRequest((req, res) => {
     } catch (error) {
       console.error("parseVoiceText error:", error);
       res.status(500).json({ error: "Failed to parse text" });
+    }
+  });
+});
+
+export const parseImage = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, async () => {
+    try {
+      if (req.method !== "POST") {
+        res.status(405).send("Method Not Allowed");
+        return;
+      }
+
+      const { image, mediaType } = req.body;
+      if (!image || !mediaType) {
+        res.status(400).json({ error: "image and mediaType are required" });
+        return;
+      }
+
+      const validTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+      if (!validTypes.includes(mediaType)) {
+        res.status(400).json({ error: "Unsupported media type" });
+        return;
+      }
+
+      const recipe = await parseRecipeImage(image, mediaType);
+      res.json(recipe);
+    } catch (error) {
+      console.error("parseImage error:", error);
+      res.status(500).json({ error: "Failed to parse image" });
     }
   });
 });

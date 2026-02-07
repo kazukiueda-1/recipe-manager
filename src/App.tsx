@@ -9,6 +9,7 @@ import RecipeEditPage from './pages/RecipeEditPage.tsx';
 import RecipeNewPage from './pages/RecipeNewPage.tsx';
 import UrlImportPage from './pages/UrlImportPage.tsx';
 import VoiceImportPage from './pages/VoiceImportPage.tsx';
+import ImageImportPage from './pages/ImageImportPage.tsx';
 import SettingsPage from './pages/SettingsPage.tsx';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -25,6 +26,7 @@ function AppRoutes() {
       <Route path="/recipe-manager/recipes/new" element={<ProtectedRoute><RecipeNewPage /></ProtectedRoute>} />
       <Route path="/recipe-manager/recipes/new/url" element={<ProtectedRoute><UrlImportPage /></ProtectedRoute>} />
       <Route path="/recipe-manager/recipes/new/voice" element={<ProtectedRoute><VoiceImportPage /></ProtectedRoute>} />
+      <Route path="/recipe-manager/recipes/new/image" element={<ProtectedRoute><ImageImportPage /></ProtectedRoute>} />
       <Route path="/recipe-manager/recipes/:id" element={<ProtectedRoute><RecipeDetailPage /></ProtectedRoute>} />
       <Route path="/recipe-manager/recipes/:id/edit" element={<ProtectedRoute><RecipeEditPage /></ProtectedRoute>} />
       <Route path="/recipe-manager/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />

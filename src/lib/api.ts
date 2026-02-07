@@ -19,3 +19,13 @@ export async function parseVoiceText(text: string) {
   if (!response.ok) throw new Error('テキストの解析に失敗しました');
   return response.json();
 }
+
+export async function parseRecipeImage(image: string, mediaType: string) {
+  const response = await fetch(`${FUNCTIONS_BASE_URL}/parseImage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ image, mediaType }),
+  });
+  if (!response.ok) throw new Error('画像の解析に失敗しました');
+  return response.json();
+}

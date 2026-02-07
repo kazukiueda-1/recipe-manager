@@ -1,13 +1,15 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useRecipes } from '../hooks/useRecipes.ts';
+import { useAuth } from '../contexts/AuthContext.tsx';
 import { useSettings } from '../contexts/SettingsContext.tsx';
 import RecipeList from '../components/recipe/RecipeList.tsx';
 import Loading from '../components/common/Loading.tsx';
 import type { Recipe } from '../types/index.ts';
 
 export default function RecipeListPage() {
-  const { recipes, loading } = useRecipes();
+  const { currentUser } = useAuth();
+  const { recipes, loading } = useRecipes(currentUser?.id);
   const { categories } = useSettings();
   const [search, setSearch] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
@@ -90,6 +92,13 @@ export default function RecipeListPage() {
           title="音声で追加"
         >
           🎤
+        </Link>
+        <Link
+          to="/recipe-manager/recipes/new/image"
+          className="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors text-lg no-underline"
+          title="画像から追加"
+        >
+          📷
         </Link>
       </div>
     </div>

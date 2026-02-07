@@ -23,7 +23,7 @@ export interface RecipeFormValues {
   cookingTime: number;
   category: string;
   tags: string[];
-  sourceType: 'url' | 'voice' | 'manual';
+  sourceType: 'url' | 'voice' | 'manual' | 'image';
   sourceUrl: string | null;
   sourceName: string | null;
   thumbnailUrl: string | null;
