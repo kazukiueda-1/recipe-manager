@@ -1,5 +1,4 @@
 import Anthropic from "@anthropic-ai/sdk";
-import * as functions from "firebase-functions";
 
 const RECIPE_PROMPT = `あなたはレシピ解析アシスタントです。与えられたテキストからレシピ情報を抽出し、以下のJSON形式で返してください。
 テキストがレシピでない場合は、できる限りの情報を推測してください。
@@ -20,8 +19,7 @@ const RECIPE_PROMPT = `あなたはレシピ解析アシスタントです。与
 JSONのみ返してください。マークダウンのコードブロックは不要です。`;
 
 export async function parseRecipeText(text: string): Promise<Record<string, unknown>> {
-  const config = functions.config();
-  const apiKey = config.anthropic?.api_key || process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.ANTHROPIC_API_KEY;
 
   if (!apiKey) {
     throw new Error("Anthropic API key not configured");
