@@ -43,5 +43,11 @@ export async function parseRecipeText(text: string): Promise<Record<string, unkn
     throw new Error("Unexpected response type");
   }
 
-  return JSON.parse(content.text);
+  // Strip markdown code blocks if present
+  let jsonText = content.text.trim();
+  if (jsonText.startsWith("```")) {
+    jsonText = jsonText.replace(/^```(?:json)?\s*/, "").replace(/\s*```$/, "");
+  }
+
+  return JSON.parse(jsonText);
 }
