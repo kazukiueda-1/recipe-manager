@@ -32,25 +32,30 @@ export default function HomePage() {
   if (loading) return <Loading />;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-accent-cream">
-      <h1 className="text-2xl font-bold text-primary-500 mb-2">レシピノート</h1>
-      <p className="text-sm text-neutral-500 mb-8">使う人を選んでください</p>
-      <div className="flex flex-wrap justify-center gap-4">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-b from-accent-cream to-white">
+      <div className="animate-fade-in">
+        <h1 className="text-2xl font-bold text-primary-500 mb-2 text-center flex items-center justify-center gap-2">
+          <span>🍳</span>
+          <span>レシピノート</span>
+        </h1>
+        <p className="text-sm text-neutral-500 mb-8 text-center">使う人を選んでください</p>
+      </div>
+      <div className="flex flex-wrap justify-center gap-4 animate-slide-up">
         {users.map(user => (
           <button
             key={user.id}
             onClick={() => handleSelect(user)}
-            className="flex flex-col items-center gap-2 bg-white rounded-xl shadow-sm hover:shadow-md p-6 w-32 transition-all duration-200 hover:-translate-y-0.5 border-none cursor-pointer"
+            className="flex flex-col items-center gap-2 bg-gradient-to-br from-white to-accent-cream/50 rounded-xl shadow-sm hover:shadow-md p-6 w-32 transition-all duration-200 active:scale-95 border-none cursor-pointer"
           >
-            <span className="text-4xl">{user.icon}</span>
+            <span className="text-5xl">{user.icon}</span>
             <span className="font-medium text-neutral-700">{user.name}</span>
           </button>
         ))}
         <button
           onClick={() => { setShowAdd(true); setName(''); setIcon('🧑'); }}
-          className="flex flex-col items-center justify-center gap-2 bg-white rounded-xl shadow-sm hover:shadow-md p-6 w-32 transition-all duration-200 hover:-translate-y-0.5 border-2 border-dashed border-neutral-300 cursor-pointer"
+          className="flex flex-col items-center justify-center gap-2 bg-white rounded-xl shadow-sm hover:shadow-md p-6 w-32 transition-all duration-200 active:scale-95 border-2 border-dashed border-neutral-300 cursor-pointer"
         >
-          <span className="text-4xl text-neutral-400">＋</span>
+          <span className="text-5xl text-neutral-400">＋</span>
           <span className="font-medium text-neutral-400">追加</span>
         </button>
       </div>

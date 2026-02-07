@@ -60,15 +60,15 @@ export default function ImageImport({ onParsed }: Props) {
     <div className="space-y-4">
       <div
         onClick={() => inputRef.current?.click()}
-        className="border-2 border-dashed border-neutral-300 rounded-lg p-8 text-center cursor-pointer hover:border-primary-400 transition-colors"
+        className="border-2 border-dashed border-neutral-300 rounded-2xl p-10 text-center cursor-pointer hover:border-primary-400 transition-all bg-gradient-to-br from-white to-accent-cream/30 hover:shadow-sm"
       >
         {preview ? (
-          <img src={preview} alt="プレビュー" className="max-h-64 mx-auto rounded-lg" />
+          <img src={preview} alt="プレビュー" className="max-h-64 mx-auto rounded-xl" />
         ) : (
           <div className="text-neutral-400">
-            <p className="text-3xl mb-2">📷</p>
-            <p className="text-sm">タップして画像を選択</p>
-            <p className="text-xs mt-1">JPEG, PNG, GIF, WebP（5MB以下）</p>
+            <p className="text-5xl mb-3">📷</p>
+            <p className="text-sm font-medium text-neutral-500">タップして画像を選択</p>
+            <p className="text-xs mt-1.5 text-neutral-400">JPEG, PNG, GIF, WebP（5MB以下）</p>
           </div>
         )}
       </div>

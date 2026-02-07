@@ -29,8 +29,21 @@ export default function VoiceImportPage() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6">
-      <h1 className="text-xl font-bold text-neutral-800 mb-6">音声でレシピを追加</h1>
+    <div className="max-w-5xl mx-auto px-4 py-6 animate-fade-in">
+      <h1 className="text-xl font-bold text-neutral-800 mb-6">🎤 音声でレシピを追加</h1>
+
+      <div className="flex items-center gap-2 mb-6">
+        <div className={`flex items-center gap-1.5 ${!parsed ? 'text-primary-500' : 'text-neutral-400'}`}>
+          <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${!parsed ? 'bg-primary-500 text-white' : 'bg-neutral-200 text-neutral-500'}`}>1</span>
+          <span className="text-xs font-medium">音声入力</span>
+        </div>
+        <div className="flex-1 h-px bg-neutral-200" />
+        <div className={`flex items-center gap-1.5 ${parsed ? 'text-primary-500' : 'text-neutral-400'}`}>
+          <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${parsed ? 'bg-primary-500 text-white' : 'bg-neutral-200 text-neutral-500'}`}>2</span>
+          <span className="text-xs font-medium">確認・保存</span>
+        </div>
+      </div>
+
       {!parsed ? (
         <VoiceImport onParsed={handleParsed} />
       ) : (

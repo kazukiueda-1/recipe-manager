@@ -11,7 +11,7 @@ export default function Input({ label, className = '', id, ...props }: InputProp
       {label && <label htmlFor={inputId} className="text-sm font-medium text-neutral-600">{label}</label>}
       <input
         id={inputId}
-        className={`rounded-lg border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent ${className}`}
+        className={`rounded-lg border border-neutral-300 px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent ${className}`}
         {...props}
       />
     </div>

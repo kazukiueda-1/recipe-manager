@@ -79,87 +79,100 @@ export default function RecipeForm({ initial, onSubmit, loading }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-5">
-      <ImageUpload currentUrl={thumbnailUrl} onUpload={setThumbnailUrl} />
-
-      <Input label="タイトル" value={title} onChange={e => setTitle(e.target.value)} required placeholder="レシピ名を入力" />
-
-      <div className="flex flex-col gap-1">
-        <label className="text-sm font-medium text-neutral-600">説明</label>
-        <textarea
-          value={description}
-          onChange={e => setDescription(e.target.value)}
-          placeholder="簡単な説明"
-          rows={2}
-          className="rounded-lg border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400 resize-none"
-        />
+      <div className="bg-white rounded-xl p-4 shadow-sm space-y-4">
+        <h3 className="text-sm font-bold text-neutral-700">📸 写真</h3>
+        <ImageUpload currentUrl={thumbnailUrl} onUpload={setThumbnailUrl} />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <Input label="分量" value={servings} onChange={e => setServings(e.target.value)} placeholder="例: 2人分" />
+      <div className="bg-white rounded-xl p-4 shadow-sm space-y-4">
+        <h3 className="text-sm font-bold text-neutral-700">📝 基本情報</h3>
+        <Input label="タイトル" value={title} onChange={e => setTitle(e.target.value)} required placeholder="レシピ名を入力" />
         <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium text-neutral-600">調理時間（分）</label>
-          <input
-            type="number"
-            min={0}
-            value={cookingTime || ''}
-            onChange={e => setCookingTime(Number(e.target.value))}
-            placeholder="30"
-            className="rounded-lg border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400"
+          <label className="text-sm font-medium text-neutral-600">説明</label>
+          <textarea
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+            placeholder="簡単な説明"
+            rows={2}
+            className="rounded-lg border border-neutral-300 px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary-400 resize-none"
           />
         </div>
-      </div>
-
-      <div className="flex flex-col gap-1">
-        <label className="text-sm font-medium text-neutral-600">カテゴリ</label>
-        <div className="flex flex-wrap gap-2">
-          {categories.map(cat => (
-            <button
-              key={cat}
-              type="button"
-              onClick={() => setCategory(category === cat ? '' : cat)}
-              className={`px-3 py-1 rounded-full text-xs border cursor-pointer transition-colors ${
-                category === cat
-                  ? 'bg-primary-500 text-white border-primary-500'
-                  : 'bg-white text-neutral-600 border-neutral-300 hover:border-primary-300'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        <div className="grid grid-cols-2 gap-4">
+          <Input label="分量" value={servings} onChange={e => setServings(e.target.value)} placeholder="例: 2人分" />
+          <div className="flex flex-col gap-1">
+            <label className="text-sm font-medium text-neutral-600">調理時間（分）</label>
+            <input
+              type="number"
+              min={0}
+              value={cookingTime || ''}
+              onChange={e => setCookingTime(Number(e.target.value))}
+              placeholder="30"
+              className="rounded-lg border border-neutral-300 px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary-400"
+            />
+          </div>
         </div>
       </div>
 
-      <div className="flex flex-col gap-1">
-        <label className="text-sm font-medium text-neutral-600">タグ</label>
-        <div className="flex flex-wrap gap-2">
-          {allTags.map(tag => (
-            <button
-              key={tag}
-              type="button"
-              onClick={() => toggleTag(tag)}
-              className={`px-3 py-1 rounded-full text-xs border cursor-pointer transition-colors ${
-                selectedTags.includes(tag)
-                  ? 'bg-secondary-500 text-white border-secondary-500'
-                  : 'bg-white text-neutral-600 border-neutral-300 hover:border-secondary-300'
-              }`}
-            >
-              {tag}
-            </button>
-          ))}
+      <div className="bg-white rounded-xl p-4 shadow-sm space-y-4">
+        <h3 className="text-sm font-bold text-neutral-700">🏷️ カテゴリ・タグ</h3>
+        <div className="flex flex-col gap-1">
+          <label className="text-sm font-medium text-neutral-600">カテゴリ</label>
+          <div className="flex flex-wrap gap-2">
+            {categories.map(cat => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setCategory(category === cat ? '' : cat)}
+                className={`px-3 py-1 rounded-full text-xs border cursor-pointer transition-colors ${
+                  category === cat
+                    ? 'bg-primary-500 text-white border-primary-500'
+                    : 'bg-white text-neutral-600 border-neutral-300 hover:border-primary-300'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-col gap-1">
+          <label className="text-sm font-medium text-neutral-600">タグ</label>
+          <div className="flex flex-wrap gap-2">
+            {allTags.map(tag => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => toggleTag(tag)}
+                className={`px-3 py-1 rounded-full text-xs border cursor-pointer transition-colors ${
+                  selectedTags.includes(tag)
+                    ? 'bg-secondary-500 text-white border-secondary-500'
+                    : 'bg-white text-neutral-600 border-neutral-300 hover:border-secondary-300'
+                }`}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      <IngredientInput ingredients={ingredients} onChange={setIngredients} />
-      <StepInput steps={steps} onChange={setSteps} />
+      <div className="bg-white rounded-xl p-4 shadow-sm">
+        <h3 className="text-sm font-bold text-neutral-700 mb-3">🥕 材料</h3>
+        <IngredientInput ingredients={ingredients} onChange={setIngredients} />
+      </div>
 
-      <div className="flex flex-col gap-1">
-        <label className="text-sm font-medium text-neutral-600">メモ</label>
+      <div className="bg-white rounded-xl p-4 shadow-sm">
+        <h3 className="text-sm font-bold text-neutral-700 mb-3">👨‍🍳 手順</h3>
+        <StepInput steps={steps} onChange={setSteps} />
+      </div>
+
+      <div className="bg-white rounded-xl p-4 shadow-sm">
+        <h3 className="text-sm font-bold text-neutral-700 mb-3">💡 メモ</h3>
         <textarea
           value={memo}
           onChange={e => setMemo(e.target.value)}
           placeholder="コツやポイントなど"
           rows={3}
-          className="rounded-lg border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400 resize-none"
+          className="w-full rounded-lg border border-neutral-300 px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary-400 resize-none"
         />
       </div>
 

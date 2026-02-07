@@ -33,6 +33,29 @@
   --color-accent-lavender: #f3f0f7;
 
   --font-family-sans: "Inter", system-ui, "Hiragino Sans", "Yu Gothic", sans-serif;
+
+  --animate-fade-in: fadeIn 0.3s ease-out;
+  --animate-slide-up: slideUp 0.2s ease-out;
+  --animate-bottom-sheet: bottomSheet 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bottomSheet {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {

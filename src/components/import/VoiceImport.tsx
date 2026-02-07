@@ -28,23 +28,24 @@ export default function VoiceImport({ onParsed }: Props) {
 
   return (
     <div className="space-y-4">
-      <div className="text-center">
+      <div className="text-center py-4">
         {isListening ? (
           <button
             onClick={stop}
-            className="w-20 h-20 rounded-full bg-red-500 text-white text-3xl border-none cursor-pointer animate-pulse"
+            className="relative w-20 h-20 rounded-full bg-red-500 text-white text-3xl border-none cursor-pointer"
           >
-            🎤
+            <span className="absolute inset-0 rounded-full bg-red-400 animate-ping opacity-30" />
+            <span className="relative">🎤</span>
           </button>
         ) : (
           <button
             onClick={start}
-            className="w-20 h-20 rounded-full bg-primary-500 text-white text-3xl border-none cursor-pointer hover:bg-primary-600 transition-colors"
+            className="w-20 h-20 rounded-full bg-primary-500 text-white text-3xl border-none cursor-pointer hover:bg-primary-600 transition-colors shadow-lg active:scale-95"
           >
             🎤
           </button>
         )}
-        <p className="text-sm text-neutral-500 mt-2">
+        <p className="text-sm text-neutral-500 mt-3">
           {isListening ? '録音中...タップで停止' : 'タップして音声入力開始'}
         </p>
       </div>
@@ -60,7 +61,7 @@ export default function VoiceImport({ onParsed }: Props) {
           onChange={e => setTranscript(e.target.value)}
           rows={6}
           placeholder="音声で話した内容がここに表示されます。手動で編集もできます。"
-          className="rounded-lg border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400 resize-none"
+          className="rounded-lg border border-neutral-300 px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary-400 resize-none"
         />
       </div>
 

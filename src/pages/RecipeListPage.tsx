@@ -37,21 +37,22 @@ export default function RecipeListPage() {
   if (loading) return <Loading />;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6">
-      <div className="mb-6">
+    <div className="max-w-5xl mx-auto px-4 py-6 animate-fade-in">
+      <div className="mb-6 relative">
+        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 text-sm pointer-events-none">🔍</span>
         <input
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder="レシピを検索..."
-          className="w-full rounded-lg border border-neutral-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400 bg-white"
+          className="w-full rounded-xl border border-neutral-200 pl-9 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400 bg-white shadow-sm"
         />
       </div>
 
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-4">
         <button
           onClick={() => setFilterCategory('')}
-          className={`px-3 py-1 rounded-full text-xs border cursor-pointer transition-colors ${
-            !filterCategory ? 'bg-primary-500 text-white border-primary-500' : 'bg-white text-neutral-600 border-neutral-300'
+          className={`px-3.5 py-1.5 rounded-full text-xs border cursor-pointer transition-all shadow-sm ${
+            !filterCategory ? 'bg-primary-500 text-white border-primary-500' : 'bg-white text-neutral-600 border-neutral-200'
           }`}
         >
           すべて
@@ -60,8 +61,8 @@ export default function RecipeListPage() {
           <button
             key={cat}
             onClick={() => setFilterCategory(filterCategory === cat ? '' : cat)}
-            className={`px-3 py-1 rounded-full text-xs border cursor-pointer transition-colors ${
-              filterCategory === cat ? 'bg-primary-500 text-white border-primary-500' : 'bg-white text-neutral-600 border-neutral-300'
+            className={`px-3.5 py-1.5 rounded-full text-xs border cursor-pointer transition-all shadow-sm ${
+              filterCategory === cat ? 'bg-primary-500 text-white border-primary-500' : 'bg-white text-neutral-600 border-neutral-200'
             }`}
           >
             {cat}
@@ -69,36 +70,46 @@ export default function RecipeListPage() {
         ))}
       </div>
 
+      <p className="text-xs text-neutral-400 mb-4">{filtered.length}品のレシピ</p>
+
       <RecipeList recipes={filtered} />
 
-      <div className="fixed bottom-6 right-6 flex flex-col gap-2">
+      <div className="fixed bottom-6 right-4 flex flex-col items-end gap-3">
         <Link
-          to="/recipe-manager/recipes/new"
-          className="w-12 h-12 rounded-full bg-primary-500 text-white flex items-center justify-center shadow-lg hover:bg-primary-600 transition-colors text-xl no-underline"
-          title="手動で追加"
+          to="/recipe-manager/recipes/new/image"
+          className="flex items-center gap-2 no-underline group"
         >
-          +
-        </Link>
-        <Link
-          to="/recipe-manager/recipes/new/url"
-          className="w-12 h-12 rounded-full bg-secondary-500 text-white flex items-center justify-center shadow-lg hover:bg-secondary-400 transition-colors text-lg no-underline"
-          title="URLから追加"
-        >
-          🔗
+          <span className="text-xs text-neutral-500 bg-white rounded-full px-2 py-1 shadow-md opacity-0 group-hover:opacity-100 transition-opacity">画像</span>
+          <span className="w-11 h-11 rounded-full bg-green-500 text-white flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors text-lg">
+            📷
+          </span>
         </Link>
         <Link
           to="/recipe-manager/recipes/new/voice"
-          className="w-12 h-12 rounded-full bg-accent-peach text-neutral-700 flex items-center justify-center shadow-lg hover:opacity-90 transition-colors text-lg no-underline"
-          title="音声で追加"
+          className="flex items-center gap-2 no-underline group"
         >
-          🎤
+          <span className="text-xs text-neutral-500 bg-white rounded-full px-2 py-1 shadow-md opacity-0 group-hover:opacity-100 transition-opacity">音声</span>
+          <span className="w-11 h-11 rounded-full bg-accent-peach text-neutral-700 flex items-center justify-center shadow-lg hover:opacity-90 transition-colors text-lg">
+            🎤
+          </span>
         </Link>
         <Link
-          to="/recipe-manager/recipes/new/image"
-          className="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors text-lg no-underline"
-          title="画像から追加"
+          to="/recipe-manager/recipes/new/url"
+          className="flex items-center gap-2 no-underline group"
         >
-          📷
+          <span className="text-xs text-neutral-500 bg-white rounded-full px-2 py-1 shadow-md opacity-0 group-hover:opacity-100 transition-opacity">URL</span>
+          <span className="w-11 h-11 rounded-full bg-secondary-500 text-white flex items-center justify-center shadow-lg hover:bg-secondary-400 transition-colors text-lg">
+            🔗
+          </span>
+        </Link>
+        <Link
+          to="/recipe-manager/recipes/new"
+          className="flex items-center gap-2 no-underline group"
+        >
+          <span className="text-xs text-neutral-500 bg-white rounded-full px-2 py-1 shadow-md opacity-0 group-hover:opacity-100 transition-opacity">手動</span>
+          <span className="w-14 h-14 rounded-full bg-primary-500 text-white flex items-center justify-center shadow-xl hover:bg-primary-600 transition-colors text-2xl font-bold">
+            +
+          </span>
         </Link>
       </div>
     </div>
